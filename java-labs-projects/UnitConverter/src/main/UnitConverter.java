@@ -1,3 +1,33 @@
+/**
+ * Unit Converter Application- Angela Lee
+ * This Unit Converter Application is a menu-driven console applications that will let users convert between one type of unit and another.
+ * It uses the Scanner for input and stores it in the value called menuSelection for the main menu. 
+ * Users can enter input directly into the console.
+ * 
+ * There is another variable named secondMenuLayer for the secondary menus.
+ * 
+ * This program uses a while loop and switch case statement, and several methods.
+ * It has 1 method to collect quantity, and several methods to convert the units. 
+ * has 2 layers of menus.
+ * 
+ * First menu:
+ * Please select an option: 
+ * 1. Volume Conversions 
+ * 2. Distance Conversions
+ * 3. Quit
+ * 
+ * Secondary menus:
+ * Volume Conversions: 
+ * 1. Teaspoons to Tablespoons 
+ * 2. Cups to Teaspoons 
+ * 3. US Gallons to Imperial Gallons
+ * 4. Quit
+ * 
+ * Distance Conversions: 
+ * 1. Feet to Meters 
+ * 2. Miles to Kilometers
+ * 3. Quit
+ */
 
 package main;
 
