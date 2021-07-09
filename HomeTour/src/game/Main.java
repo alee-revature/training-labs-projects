@@ -2,80 +2,68 @@ package game;
 
 import java.util.Scanner;
 
+import fixtures.Room;
+
 public class Main {
-	private static RoomManager rm = new RoomManager(10);
+	private static RoomManager rm = new RoomManager(12);
 	private static boolean running = true;
 	
 	public static void main(String[] args) {
 		rm.init();	// Instantiate house
 		
 		Player player = new Player(); //Create the player 
-		
+
 		printInstructions(); // Print instructions to play the game
-		Scanner sc = new Scanner(System.in);
-		//player.setCurrentRoom(rm.getStartingRoom()); // Player starts in the 'starting room'
 		
+		player.setCurrentRoom(rm.getStartingRoom()); // Player starts in the 'starting room'
+		
+		if (running) {
 		//Print the player's location and ask for input
-		while (running) {
 			printRoom(player);
-			String[] input = collectInput();
-			parse(input, player);
 		}
 	}
 
 		public static void printRoom(Player player) {
-			System.out.println(":::: CURRENT ROOM ::::");
+			System.out.println("\n:::: CURRENT ROOM ::::");
 			System.out.println("Name: " + player.getCurrentRoom().getName());
-			System.out.println("Short Desc: " + player.getCurrentRoom().getShortDesc());
-			System.out.println("Long Desc: " + player.getCurrentRoom().getLongDesc());
+			System.out.println("Short Description: " + player.getCurrentRoom().getShortDesc());
+			System.out.println("Long Description: " + player.getCurrentRoom().getLongDesc());
 			printRoomExits(player);
-			//printInteractableObjects(player.getCurrentRoom());
+			Scanner sc = new Scanner(System.in);
+			String input = sc.nextLine();
+			parseInput(input);
+			
+			//player.setCurrentRoom(rm.());
 		}
 		public static void printInstructions() {
-			System.out.println("Welcome to my house! Glad to see you're here. "
+			System.out.println("Welcome to my house!"
+					+ "\n\n Game Instructions: "
 					+ "\n Type in commands and a direction to explore each room in the house"
-					+ "\n\n Go: Enter a room"
-					+ "\n Move: Enter a room"
-					+ "\n QUIT: Exit game"
-					+ "\n\n Enter in the command and a direction to exit the room and look at another room");
+					+ "\n Press move and a direction (North, South, East, or West) to change the direction of the room"
+					+ "\n Enter in the command and a direction to exit the room and look at another room"
+					+ "\n Enter LEAVE to exit game");
 		}
 		
-		private static String[] collectInput() {
-			return null;
+		//Move the player to a new Room. Can put this directly within the parse method
+		public static void printRoomExits(Player player) {
+			System.out.println("\nAdjacent Rooms ");
+			System.out.println("North: " + rm.getRooms()[1].getShortDesc());
+			System.out.println("South: " + rm.getRooms()[2].getShortDesc());
+			System.out.println("East: " + rm.getRooms()[3].getShortDesc());
+			System.out.println("West: " + rm.getRooms()[4].getShortDesc());
 		}
-		private static void parse(String[] command, Player player) {
-			//'action' includes moving the player, interacting with an object and quitting
-			String action = command[0].toUpperCase().intern();
+		
+		public static void parseInput(String input) {
+			String [] words = input.split(" ");
+			String command = words[0];
+			String direction = words[1];
+			System.out.println("You try to " + command + " " + direction);
 			
-			// 'details'- more options for the specific commands. Initially set to null, as player may enter more commands
-			String details = null;
-			
-			if (command.length > 1) {
-				details = command[1].toUpperCase().intern();
-			}
-
-			if (action == "GO" | action == "MOVE") { // What to do when the 'action' specified is to move
-				
-			} else if (action == "INTERACT") { // What to do when the 'action' specified is to interact
-				System.out.println("Picking up object");
-			} else if (action == "QUIT") {
+			if (command.equals("LEAVE")) {
 				endGame();
 			}
 		}
 		
-		public static void printRoomExits(Player player) {
-			
-		}
-		
-		//Move the player to a new Room. Can put this directly within the parse method
-		public static void movePlayer(String details, Player player) {
-			
-		}
-		
-		//Let player interact with objects in a Room that implement the 'Interactable' interface. Can put this logic directly within the parse method
-		/*public static void objectInteraction(String details, Player player) {
-			
-		}*/
 		public static void endGame() {
 			running = false;
 			System.out.println("Thank you for playing! Hope to see you again!");
